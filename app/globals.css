@@ -1,0 +1,52 @@
+/* Tailwind v4 imports */
+@import "tailwindcss/preflight";
+@import "tailwindcss/theme";
+@import "tailwindcss/utilities";
+
+/* Light mode variables */
+:root {
+  --background: #ffffff;
+  --foreground: #232323;
+  --primary: #8b0000; /* Pandayan Dark Red */
+  --primary-hover: #a00000;
+  --secondary: #ffd700; /* Gold */
+  --accent: #d4af37;   /* Darker Gold */
+  --border: #e5e7eb;
+  --radius: 0.625rem;
+}
+
+/* Dark mode variables */
+.dark {
+  --background: #121212;
+  --foreground: #f5f5f5;
+}
+
+/* Base styles */
+@layer base {
+  * {
+    @apply border-gray-300 outline-none;
+  }
+
+  body {
+    @apply bg-[var(--background)] text-[var(--foreground)];
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1; /* Muted gray */
+}
