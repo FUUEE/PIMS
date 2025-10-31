@@ -73,7 +73,7 @@ export default function POSPage() {
 
       <div className="flex flex-1 gap-6 overflow-hidden p-6">
         {/* Products Section */}
-        <div className="flex-1 overflow-hidden rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+        <div className="flex-1 overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--surface)] p-4">
           <ProductGrid items={items} onAddToCart={handleAddToCart} />
         </div>
 

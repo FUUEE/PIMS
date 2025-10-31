@@ -17,10 +17,10 @@ const mockTopProducts: TopProduct[] = [
 
 export function TopProducts() {
   return (
-    <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
+    <Card className="border-[var(--border)] bg-[var(--surface)]">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-[var(--color-foreground)]">
-          <TrendingUp className="h-5 w-5 text-[var(--color-success)]" />
+        <CardTitle className="flex items-center gap-2 text-[var(--foreground)]">
+          <TrendingUp className="h-5 w-5 text-[var(--success)]" />
           Top Products
         </CardTitle>
       </CardHeader>
@@ -28,12 +28,12 @@ export function TopProducts() {
         <div className="space-y-4">
           {mockTopProducts.map((product, index) => (
             <div key={product.id} className="flex items-center gap-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-secondary)]/20 text-sm font-bold text-[var(--color-secondary)]">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--secondary)]/20 text-sm font-bold text-[var(--secondary)]">
                 {index + 1}
               </div>
               <div className="flex-1">
-                <p className="text-sm font-medium text-[var(--color-foreground)]">{product.name}</p>
-                <p className="text-xs text-[var(--color-muted)]">
+                <p className="text-sm font-medium text-[var(--foreground)]">{product.name}</p>
+                <p className="text-xs text-[var(--muted)]">
                   {product.sales} sales • ₱{product.revenue.toLocaleString()}
                 </p>
               </div>

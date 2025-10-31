@@ -28,14 +28,14 @@ const activityColors = {
   inventory: "bg-blue-500/10 text-blue-500",
   sale: "bg-green-500/10 text-green-500",
   purchase: "bg-purple-500/10 text-purple-500",
-  alert: "bg-[var(--color-secondary)]/20 text-[var(--color-secondary)]",
+  alert: "bg-[var(--secondary)]/20 text-[var(--secondary)]",
 }
 
 export function RecentActivity() {
   return (
-    <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
+    <Card className="border-[var(--border)] bg-[var(--surface)]">
       <CardHeader>
-        <CardTitle className="text-[var(--color-foreground)]">Recent Activity</CardTitle>
+        <CardTitle className="text-[var(--foreground)]">Recent Activity</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
@@ -49,8 +49,8 @@ export function RecentActivity() {
                   <Icon className="h-5 w-5" />
                 </div>
                 <div className="flex-1 space-y-1">
-                  <p className="text-sm font-medium text-[var(--color-foreground)]">{activity.message}</p>
-                  <p className="text-xs text-[var(--color-muted)]">{activity.time}</p>
+                  <p className="text-sm font-medium text-[var(--foreground)]">{activity.message}</p>
+                  <p className="text-xs text-[var(--muted)]">{activity.time}</p>
                 </div>
               </div>
             )

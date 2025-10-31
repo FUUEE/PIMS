@@ -43,30 +43,30 @@ export default function SalesPage() {
       <div className="space-y-6 p-6">
         {/* Stats */}
         <div className="grid gap-6 md:grid-cols-3">
-          <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
+          <Card className="border-[var(--border)] bg-[var(--surface)]">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-[var(--color-muted)]">Total Sales</CardTitle>
+              <CardTitle className="text-sm font-medium text-[var(--muted)]">Total Sales</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-[var(--color-foreground)]">{totalSales}</p>
+              <p className="text-3xl font-bold text-[var(--foreground)]">{totalSales}</p>
             </CardContent>
           </Card>
 
-          <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
+          <Card className="border-[var(--border)] bg-[var(--surface)]">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-[var(--color-muted)]">Total Revenue</CardTitle>
+              <CardTitle className="text-sm font-medium text-[var(--muted)]">Total Revenue</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-[var(--color-primary)]">₱{totalRevenue.toLocaleString()}</p>
+              <p className="text-3xl font-bold text-[var(--primary)]">₱{totalRevenue.toLocaleString()}</p>
             </CardContent>
           </Card>
 
-          <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
+          <Card className="border-[var(--border)] bg-[var(--surface)]">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-[var(--color-muted)]">Average Sale</CardTitle>
+              <CardTitle className="text-sm font-medium text-[var(--muted)]">Average Sale</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-[var(--color-foreground)]">
+              <p className="text-3xl font-bold text-[var(--foreground)]">
                 ₱{totalSales > 0 ? Math.round(totalRevenue / totalSales).toLocaleString() : 0}
               </p>
             </CardContent>
@@ -77,19 +77,19 @@ export default function SalesPage() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-1 gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-muted)]" />
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--muted)]" />
               <Input
                 placeholder="Search by transaction ID..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-[var(--color-background)] pl-10"
+                className="bg-[var(--fieldcolor)] pl-10"
               />
             </div>
             <Select value={paymentFilter} onValueChange={setPaymentFilter}>
-              <SelectTrigger className="w-48 bg-[var(--color-background)]">
+              <SelectTrigger className="w-48 bg-[var(--fieldcolor)]">
                 <SelectValue placeholder="Payment method" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-[var(--dropdowncolor)]">
                 <SelectItem value="all">All Methods</SelectItem>
                 <SelectItem value="cash">Cash</SelectItem>
                 <SelectItem value="card">Card</SelectItem>
@@ -97,52 +97,52 @@ export default function SalesPage() {
               </SelectContent>
             </Select>
           </div>
-          <Button variant="outline" className="gap-2 bg-transparent">
+          <Button variant="outline" className="gap-2 bg-[var(--buttoncolor2)] text-[var(--hoveredtext)]">
             <Download className="h-4 w-4" />
             Export
           </Button>
         </div>
 
         {/* Sales Table */}
-        <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
+        <Card className="border-[var(--border)] bg-[var(--surface)]">
           <CardHeader>
-            <CardTitle className="text-[var(--color-foreground)]">Recent Sales</CardTitle>
+            <CardTitle className="text-[var(--foreground)]">Recent Sales</CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
-                <TableRow className="border-[var(--color-border)] hover:bg-transparent">
-                  <TableHead className="text-[var(--color-foreground)]">Transaction ID</TableHead>
-                  <TableHead className="text-[var(--color-foreground)]">Date & Time</TableHead>
-                  <TableHead className="text-[var(--color-foreground)]">Items</TableHead>
-                  <TableHead className="text-[var(--color-foreground)]">Payment Method</TableHead>
-                  <TableHead className="text-[var(--color-foreground)]">Cashier</TableHead>
-                  <TableHead className="text-[var(--color-foreground)]">Total</TableHead>
-                  <TableHead className="text-right text-[var(--color-foreground)]">Actions</TableHead>
+                <TableRow className="border-[var(--border)] hover:bg-transparent">
+                  <TableHead className="text-[var(--foreground)]">Transaction ID</TableHead>
+                  <TableHead className="text-[var(--foreground)]">Date & Time</TableHead>
+                  <TableHead className="text-[var(--foreground)]">Items</TableHead>
+                  <TableHead className="text-[var(--foreground)]">Payment Method</TableHead>
+                  <TableHead className="text-[var(--foreground)]">Cashier</TableHead>
+                  <TableHead className="text-[var(--foreground)]">Total</TableHead>
+                  <TableHead className="text-right text-[var(--foreground)]">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredSales.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={7} className="h-24 text-center text-[var(--color-muted)]">
+                    <TableCell colSpan={7} className="h-24 text-center text-[var(--muted)]">
                       No sales found
                     </TableCell>
                   </TableRow>
                 ) : (
                   filteredSales.map((sale) => (
-                    <TableRow key={sale.id} className="border-[var(--color-border)]">
-                      <TableCell className="font-mono text-sm text-[var(--color-muted)]">#{sale.id}</TableCell>
-                      <TableCell className="text-[var(--color-foreground)]">
+                    <TableRow key={sale.id} className="border-[var(--border)]">
+                      <TableCell className="font-mono text-sm text-[var(--muted)]">#{sale.id}</TableCell>
+                      <TableCell className="text-[var(--foreground)]">
                         {format(new Date(sale.date), "MMM dd, yyyy HH:mm")}
                       </TableCell>
-                      <TableCell className="text-[var(--color-muted)]">{sale.items.length} items</TableCell>
+                      <TableCell className="text-[var(--muted)]">{sale.items.length} items</TableCell>
                       <TableCell>
                         <Badge className={paymentMethodColors[sale.paymentMethod]}>
                           {sale.paymentMethod.charAt(0).toUpperCase() + sale.paymentMethod.slice(1)}
                         </Badge>
                       </TableCell>
-                      <TableCell className="text-[var(--color-muted)]">{sale.cashier}</TableCell>
-                      <TableCell className="font-semibold text-[var(--color-primary)]">
+                      <TableCell className="text-[var(--muted)]">{sale.cashier}</TableCell>
+                      <TableCell className="font-semibold text-[var(--primary)]">
                         ₱{sale.total.toLocaleString()}
                       </TableCell>
                       <TableCell className="text-right">

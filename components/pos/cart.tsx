@@ -33,41 +33,41 @@ export function Cart({ items, onUpdateQuantity, onRemoveItem, onCheckout }: Cart
   }
 
   return (
-    <div className="flex h-full flex-col rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+    <div className="flex h-full flex-col rounded-lg border border-[var(--border)] bg-[var(--surface)] p-4">
       {/* Header */}
       <div className="mb-4 flex items-center gap-2">
-        <ShoppingCart className="h-5 w-5 text-[var(--color-primary)]" />
-        <h2 className="text-lg font-semibold text-[var(--color-foreground)]">Current Order</h2>
+        <ShoppingCart className="h-5 w-5 text-[var(--primary)]" />
+        <h2 className="text-lg font-semibold text-[var(--foreground)]">Current Order</h2>
         <Badge variant="secondary" className="ml-auto">
           {items.length} items
         </Badge>
       </div>
 
-      <Separator className="mb-4 bg-[var(--color-border)]" />
+      <Separator className="mb-4 bg-[var(--border)]" />
 
       {/* Cart Items */}
       <div className="flex-1 space-y-3 overflow-y-auto">
         {items.length === 0 ? (
           <div className="flex h-full flex-col items-center justify-center text-center">
-            <ShoppingCart className="mb-2 h-12 w-12 text-[var(--color-muted)]" />
-            <p className="text-sm text-[var(--color-muted)]">Cart is empty</p>
-            <p className="text-xs text-[var(--color-muted)]">Add items to start a sale</p>
+            <ShoppingCart className="mb-2 h-12 w-12 text-[var(--muted)]" />
+            <p className="text-sm text-[var(--muted)]">Cart is empty</p>
+            <p className="text-xs text-[var(--muted)]">Add items to start a sale</p>
           </div>
         ) : (
           items.map((item) => (
             <div
               key={item.id}
-              className="rounded-lg border border-[var(--color-border)] bg-[var(--color-background)] p-3"
+              className="rounded-lg border border-[var(--border)] bg-[var(--background)] p-3"
             >
               <div className="mb-2 flex items-start justify-between">
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-[var(--color-foreground)]">{item.name}</p>
-                  <p className="text-xs text-[var(--color-muted)]">₱{item.price.toLocaleString()} each</p>
+                  <p className="text-sm font-medium text-[var(--foreground)]">{item.name}</p>
+                  <p className="text-xs text-[var(--muted)]">₱{item.price.toLocaleString()} each</p>
                 </div>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-6 w-6 text-[var(--color-error)] hover:text-[var(--color-error)]"
+                  className="h-6 w-6 text-[var(--error)] hover:text-[var(--error)]"
                   onClick={() => onRemoveItem(item.id)}
                 >
                   <Trash2 className="h-3 w-3" />
@@ -83,7 +83,7 @@ export function Cart({ items, onUpdateQuantity, onRemoveItem, onCheckout }: Cart
                   >
                     <Minus className="h-3 w-3" />
                   </Button>
-                  <span className="w-8 text-center text-sm font-medium text-[var(--color-foreground)]">
+                  <span className="w-8 text-center text-sm font-medium text-[var(--foreground)]">
                     {item.quantity}
                   </span>
                   <Button
@@ -96,7 +96,7 @@ export function Cart({ items, onUpdateQuantity, onRemoveItem, onCheckout }: Cart
                     <Plus className="h-3 w-3" />
                   </Button>
                 </div>
-                <p className="text-sm font-bold text-[var(--color-primary)]">
+                <p className="text-sm font-bold text-[var(--primary)]">
                   ₱{(item.price * item.quantity).toLocaleString()}
                 </p>
               </div>
@@ -108,12 +108,12 @@ export function Cart({ items, onUpdateQuantity, onRemoveItem, onCheckout }: Cart
       {/* Checkout Section */}
       {items.length > 0 && (
         <>
-          <Separator className="my-4 bg-[var(--color-border)]" />
+          <Separator className="my-4 bg-[var(--border)]" />
 
           <div className="space-y-3">
             {/* Discount */}
             <div className="space-y-2">
-              <Label htmlFor="discount" className="text-xs text-[var(--color-muted)]">
+              <Label htmlFor="discount" className="text-xs text-[var(--muted)]">
                 Discount (%)
               </Label>
               <Input
@@ -123,17 +123,17 @@ export function Cart({ items, onUpdateQuantity, onRemoveItem, onCheckout }: Cart
                 max="100"
                 value={discount}
                 onChange={(e) => setDiscount(Number.parseFloat(e.target.value) || 0)}
-                className="h-9 bg-[var(--color-background)]"
+                className="h-9 bg-[var(--background)]"
               />
             </div>
 
             {/* Payment Method */}
             <div className="space-y-2">
-              <Label htmlFor="payment" className="text-xs text-[var(--color-muted)]">
+              <Label htmlFor="payment" className="text-xs text-[var(--muted)]">
                 Payment Method
               </Label>
               <Select value={paymentMethod} onValueChange={setPaymentMethod}>
-                <SelectTrigger className="h-9 bg-[var(--color-background)]">
+                <SelectTrigger className="h-9 bg-[var(--background)]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -145,27 +145,27 @@ export function Cart({ items, onUpdateQuantity, onRemoveItem, onCheckout }: Cart
             </div>
 
             {/* Totals */}
-            <div className="space-y-2 rounded-lg bg-[var(--color-background)] p-3">
+            <div className="space-y-2 rounded-lg bg-[var(--background)] p-3">
               <div className="flex justify-between text-sm">
-                <span className="text-[var(--color-muted)]">Subtotal</span>
-                <span className="text-[var(--color-foreground)]">₱{subtotal.toLocaleString()}</span>
+                <span className="text-[var(--muted)]">Subtotal</span>
+                <span className="text-[var(--foreground)]">₱{subtotal.toLocaleString()}</span>
               </div>
               {discount > 0 && (
                 <div className="flex justify-between text-sm">
-                  <span className="text-[var(--color-muted)]">Discount ({discount}%)</span>
-                  <span className="text-[var(--color-success)]">-₱{discountAmount.toLocaleString()}</span>
+                  <span className="text-[var(--muted)]">Discount ({discount}%)</span>
+                  <span className="text-[var(--success)]">-₱{discountAmount.toLocaleString()}</span>
                 </div>
               )}
-              <Separator className="bg-[var(--color-border)]" />
+              <Separator className="bg-[var(--border)]" />
               <div className="flex justify-between">
-                <span className="font-semibold text-[var(--color-foreground)]">Total</span>
-                <span className="text-xl font-bold text-[var(--color-primary)]">₱{total.toLocaleString()}</span>
+                <span className="font-semibold text-[var(--foreground)]">Total</span>
+                <span className="text-xl font-bold text-[var(--primary)]">₱{total.toLocaleString()}</span>
               </div>
             </div>
 
             {/* Checkout Button */}
             <Button
-              className="w-full bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
+              className="w-full bg-[var(--buttoncolor2)] text-white hover:bg-[var(--primary-hover)]"
               onClick={handleCheckout}
             >
               Complete Sale

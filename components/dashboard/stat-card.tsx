@@ -13,19 +13,19 @@ interface StatCardProps {
 
 export function StatCard({ title, value, change, changeType = "neutral", icon: Icon, iconColor }: StatCardProps) {
   return (
-    <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
+    <Card className="border-[var(--border)] bg-[var(--surface)]">
       <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex-1">
-            <p className="text-sm font-medium text-[var(--color-muted)]">{title}</p>
-            <p className="mt-2 text-3xl font-bold text-[var(--color-foreground)]">{value}</p>
+            <p className="text-sm font-medium text-[var(--muted)]">{title}</p>
+            <p className="mt-2 text-3xl font-bold text-[var(--foreground)]">{value}</p>
             {change && (
               <p
                 className={cn(
                   "mt-2 text-sm font-medium",
-                  changeType === "positive" && "text-[var(--color-success)]",
-                  changeType === "negative" && "text-[var(--color-error)]",
-                  changeType === "neutral" && "text-[var(--color-muted)]",
+                  changeType === "positive" && "text-[var(--success)]",
+                  changeType === "negative" && "text-[var(--error)]",
+                  changeType === "neutral" && "text-[var(--muted)]",
                 )}
               >
                 {change}
@@ -35,10 +35,10 @@ export function StatCard({ title, value, change, changeType = "neutral", icon: I
           <div
             className={cn(
               "flex h-12 w-12 items-center justify-center rounded-lg",
-              iconColor || "bg-[var(--color-primary)]/10",
+              iconColor || "bg-[var(--primary)]/10",
             )}
           >
-            <Icon className={cn("h-6 w-6", iconColor ? "text-current" : "text-[var(--color-primary)]")} />
+            <Icon className={cn("h-6 w-6", iconColor ? "text-current" : "text-[var(--primary)]")} />
           </div>
         </div>
       </CardContent>

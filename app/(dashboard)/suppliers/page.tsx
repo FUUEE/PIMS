@@ -59,30 +59,30 @@ export default function SuppliersPage() {
       <div className="space-y-6 p-6">
         {/* Stats */}
         <div className="grid gap-6 md:grid-cols-3">
-          <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
+          <Card className="border-[var(--border)] bg-[var(--surface)]">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-[var(--color-muted)]">Total Suppliers</CardTitle>
+              <CardTitle className="text-sm font-medium text-[var(--muted)]">Total Suppliers</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-[var(--color-foreground)]">{suppliers.length}</p>
+              <p className="text-3xl font-bold text-[var(--foreground)]">{suppliers.length}</p>
             </CardContent>
           </Card>
 
-          <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
+          <Card className="border-[var(--border)] bg-[var(--surface)]">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-[var(--color-muted)]">Active Suppliers</CardTitle>
+              <CardTitle className="text-sm font-medium text-[var(--muted)]">Active Suppliers</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-[var(--color-success)]">{suppliers.length}</p>
+              <p className="text-3xl font-bold text-[var(--success)]">{suppliers.length}</p>
             </CardContent>
           </Card>
 
-          <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
+          <Card className="border-[var(--border)] bg-[var(--surface)]">
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-[var(--color-muted)]">Categories Covered</CardTitle>
+              <CardTitle className="text-sm font-medium text-[var(--muted)]">Categories Covered</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-[var(--color-foreground)]">
+              <p className="text-3xl font-bold text-[var(--foreground)]">
                 {new Set(suppliers.flatMap((s) => s.productsSupplied)).size}
               </p>
             </CardContent>
@@ -92,56 +92,56 @@ export default function SuppliersPage() {
         {/* Search and Add */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-muted)]" />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--muted)]" />
             <Input
               placeholder="Search suppliers..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-[var(--color-background)] pl-10"
+              className="bg-[var(--fieldcolor)] pl-10"
             />
           </div>
 
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]">
+              <Button className="bg-[var(--buttoncolor2)] text-white hover:bg-[var(--primary-hover)]">
                 <Plus className="mr-2 h-4 w-4" />
                 Add Supplier
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-h-[90vh] overflow-y-auto border-[var(--color-border)] bg-[var(--color-surface)] sm:max-w-[500px]">
+            <DialogContent className="max-h-[90vh] overflow-y-auto border-[var(--border)] bg-[var(--secondary)] sm:max-w-[500px]">
               <DialogHeader>
-                <DialogTitle className="text-[var(--color-foreground)]">Add New Supplier</DialogTitle>
+                <DialogTitle className="text-[var(--foreground)]">Add New Supplier</DialogTitle>
               </DialogHeader>
               <form onSubmit={handleAddSupplier} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name" className="text-[var(--color-foreground)]">
+                  <Label htmlFor="name" className="text-[var(--foreground)]">
                     Company Name
                   </Label>
                   <Input
                     id="name"
                     name="name"
                     required
-                    className="bg-[var(--color-background)]"
+                    className="bg-[var(--fieldcolor)]"
                     placeholder="Tech Supplies Inc"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="contact" className="text-[var(--color-foreground)]">
+                  <Label htmlFor="contact" className="text-[var(--foreground)]">
                     Contact Person
                   </Label>
                   <Input
                     id="contact"
                     name="contact"
                     required
-                    className="bg-[var(--color-background)]"
+                    className="bg-[var(--fieldcolor)]"
                     placeholder="John Doe"
                   />
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
-                    <Label htmlFor="email" className="text-[var(--color-foreground)]">
+                    <Label htmlFor="email" className="text-[var(--foreground)]">
                       Email
                     </Label>
                     <Input
@@ -149,47 +149,47 @@ export default function SuppliersPage() {
                       name="email"
                       type="email"
                       required
-                      className="bg-[var(--color-background)]"
+                      className="bg-[var(--fieldcolor)]"
                       placeholder="john@techsupplies.com"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-[var(--color-foreground)]">
+                    <Label htmlFor="phone" className="text-[var(--foreground)]">
                       Phone
                     </Label>
                     <Input
                       id="phone"
                       name="phone"
                       required
-                      className="bg-[var(--color-background)]"
+                      className="bg-[var(--fieldcolor)]"
                       placeholder="+63 912 345 6789"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="address" className="text-[var(--color-foreground)]">
+                  <Label htmlFor="address" className="text-[var(--foreground)]">
                     Address
                   </Label>
                   <Input
                     id="address"
                     name="address"
                     required
-                    className="bg-[var(--color-background)]"
+                    className="bg-[var(--fieldcolor)]"
                     placeholder="Manila, Philippines"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="products" className="text-[var(--color-foreground)]">
+                  <Label htmlFor="products" className="text-[var(--foreground)]">
                     Products Supplied (comma-separated)
                   </Label>
                   <Input
                     id="products"
                     name="products"
                     required
-                    className="bg-[var(--color-background)]"
+                    className="bg-[var(--fieldcolor)]"
                     placeholder="Electronics, Accessories"
                   />
                 </div>
@@ -200,7 +200,7 @@ export default function SuppliersPage() {
                   </Button>
                   <Button
                     type="submit"
-                    className="bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
+                    className="bg-[var(--buttoncolor2)] text-white hover:bg-[var(--primary-hover)]"
                   >
                     Add Supplier
                   </Button>
@@ -215,34 +215,34 @@ export default function SuppliersPage() {
           {filteredSuppliers.map((supplier) => (
             <Card
               key={supplier.id}
-              className="cursor-pointer border-[var(--color-border)] bg-[var(--color-surface)] transition-all hover:border-[var(--color-primary)] hover:shadow-lg"
+              className="cursor-pointer border-[var(--border)] bg-[var(--surface)] transition-all hover:border-[var(--primary)] hover:shadow-lg"
               onClick={() => setSelectedSupplier(supplier)}
             >
               <CardHeader>
-                <CardTitle className="text-lg text-[var(--color-foreground)]">{supplier.name}</CardTitle>
-                <p className="text-sm text-[var(--color-muted)]">{supplier.contact}</p>
+                <CardTitle className="text-lg text-[var(--foreground)]">{supplier.name}</CardTitle>
+                <p className="text-sm text-[var(--muted)]">{supplier.contact}</p>
               </CardHeader>
               <CardContent className="space-y-3">
-                <div className="flex items-center gap-2 text-sm text-[var(--color-muted)]">
+                <div className="flex items-center gap-2 text-sm text-[var(--muted)]">
                   <Mail className="h-4 w-4" />
                   <span className="truncate">{supplier.email}</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-[var(--color-muted)]">
+                <div className="flex items-center gap-2 text-sm text-[var(--muted)]">
                   <Phone className="h-4 w-4" />
                   <span>{supplier.phone}</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-[var(--color-muted)]">
+                <div className="flex items-center gap-2 text-sm text-[var(--muted)]">
                   <MapPin className="h-4 w-4" />
                   <span className="truncate">{supplier.address}</span>
                 </div>
                 <div className="flex items-start gap-2 pt-2">
-                  <Package className="mt-0.5 h-4 w-4 text-[var(--color-muted)]" />
+                  <Package className="mt-0.5 h-4 w-4 text-[var(--muted)]" />
                   <div className="flex flex-wrap gap-1">
                     {supplier.productsSupplied.map((product, index) => (
                       <Badge
                         key={index}
                         variant="outline"
-                        className="border-[var(--color-primary)]/20 text-xs text-[var(--color-primary)]"
+                        className="border-[var(--primary)]/20 text-xs text-[var(--primary)]"
                       >
                         {product}
                       </Badge>
@@ -256,38 +256,38 @@ export default function SuppliersPage() {
 
         {/* Supplier Details Dialog */}
         <Dialog open={!!selectedSupplier} onOpenChange={() => setSelectedSupplier(null)}>
-          <DialogContent className="border-[var(--color-border)] bg-[var(--color-surface)] sm:max-w-[600px]">
+          <DialogContent className="border-[var(--border)] bg-[var(--surface)] sm:max-w-[600px]">
             <DialogHeader>
-              <DialogTitle className="text-[var(--color-foreground)]">{selectedSupplier?.name}</DialogTitle>
+              <DialogTitle className="text-[var(--foreground)]">{selectedSupplier?.name}</DialogTitle>
             </DialogHeader>
             {selectedSupplier && (
               <div className="space-y-6">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
-                    <Label className="text-xs text-[var(--color-muted)]">Contact Person</Label>
-                    <p className="text-sm text-[var(--color-foreground)]">{selectedSupplier.contact}</p>
+                    <Label className="text-xs text-[var(--muted)]">Contact Person</Label>
+                    <p className="text-sm text-[var(--foreground)]">{selectedSupplier.contact}</p>
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-xs text-[var(--color-muted)]">Email</Label>
-                    <p className="text-sm text-[var(--color-foreground)]">{selectedSupplier.email}</p>
+                    <Label className="text-xs text-[var(--muted)]">Email</Label>
+                    <p className="text-sm text-[var(--foreground)]">{selectedSupplier.email}</p>
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-xs text-[var(--color-muted)]">Phone</Label>
-                    <p className="text-sm text-[var(--color-foreground)]">{selectedSupplier.phone}</p>
+                    <Label className="text-xs text-[var(--muted)]">Phone</Label>
+                    <p className="text-sm text-[var(--foreground)]">{selectedSupplier.phone}</p>
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-xs text-[var(--color-muted)]">Address</Label>
-                    <p className="text-sm text-[var(--color-foreground)]">{selectedSupplier.address}</p>
+                    <Label className="text-xs text-[var(--muted)]">Address</Label>
+                    <p className="text-sm text-[var(--foreground)]">{selectedSupplier.address}</p>
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="text-xs text-[var(--color-muted)]">Products Supplied</Label>
+                  <Label className="text-xs text-[var(--muted)]">Products Supplied</Label>
                   <div className="flex flex-wrap gap-2">
                     {selectedSupplier.productsSupplied.map((product, index) => (
                       <Badge
                         key={index}
-                        className="bg-[var(--color-primary)]/10 text-[var(--color-primary)] hover:bg-[var(--color-primary)]/20"
+                        className="bg-[var(--primary)]/10 text-[var(--primary)] hover:bg-[var(--primary)]/20"
                       >
                         {product}
                       </Badge>
@@ -299,7 +299,7 @@ export default function SuppliersPage() {
                   <Button variant="outline" onClick={() => setSelectedSupplier(null)}>
                     Close
                   </Button>
-                  <Button className="bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]">
+                  <Button className="bg-[var(--buttoncolor2)] text-white hover:bg-[var(--primary-hover)]">
                     Edit Supplier
                   </Button>
                 </div>

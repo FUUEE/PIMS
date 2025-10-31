@@ -28,12 +28,12 @@ export function ProductGrid({ items, onAddToCart }: ProductGridProps) {
       {/* Search */}
       <div className="mb-4">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-muted)]" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--muted)]" />
           <Input
             placeholder="Search products..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-[var(--color-background)] pl-10"
+            className="bg-[var(--background)] pl-10"
           />
         </div>
       </div>
@@ -46,7 +46,7 @@ export function ProductGrid({ items, onAddToCart }: ProductGridProps) {
               key={item.id}
               variant="outline"
               className={cn(
-                "h-auto flex-col items-start gap-2 border-[var(--color-border)] bg-[var(--color-surface)] p-4 text-left hover:border-[var(--color-primary)] hover:bg-[var(--color-surface)]",
+                "h-auto flex-col items-start gap-2 border-[var(--border)] bg-[var(--surface)] p-4 text-left hover:border-[var(--primary)] hover:bg-[var(--surface)]",
                 item.stock === 0 && "opacity-50",
               )}
               onClick={() => item.stock > 0 && onAddToCart(item)}
@@ -54,22 +54,22 @@ export function ProductGrid({ items, onAddToCart }: ProductGridProps) {
             >
               <div className="flex w-full items-start justify-between">
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-[var(--color-foreground)] line-clamp-2">{item.name}</p>
-                  <p className="mt-1 text-xs text-[var(--color-muted)]">{item.category}</p>
+                  <p className="text-sm font-semibold text-[var(--foreground)] line-clamp-2">{item.name}</p>
+                  <p className="mt-1 text-xs text-[var(--muted)]">{item.category}</p>
                 </div>
-                <Plus className="h-4 w-4 text-[var(--color-primary)]" />
+                <Plus className="h-4 w-4 text-[var(--primary)]" />
               </div>
               <div className="flex w-full items-center justify-between">
-                <p className="text-lg font-bold text-[var(--color-primary)]">₱{item.price.toLocaleString()}</p>
+                <p className="text-lg font-bold text-[var(--primary)]">₱{item.price.toLocaleString()}</p>
                 <Badge
                   variant="outline"
                   className={cn(
                     "text-xs",
                     item.stock === 0
-                      ? "border-[var(--color-error)] text-[var(--color-error)]"
+                      ? "border-[var(--error)] text-[var(--error)]"
                       : item.stock <= item.lowStockThreshold
-                        ? "border-[var(--color-warning)] text-[var(--color-warning)]"
-                        : "border-[var(--color-success)] text-[var(--color-success)]",
+                        ? "border-[var(--warning)] text-[var(--warning)]"
+                        : "border-[var(--success)] text-[var(--success)]",
                   )}
                 >
                   {item.stock} left

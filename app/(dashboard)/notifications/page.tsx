@@ -84,17 +84,17 @@ const notificationIcons = {
 }
 
 const notificationColors = {
-  alert: "border-[var(--color-error)] bg-[var(--color-error)]/5",
+  alert: "border-[var(--error)] bg-[var(--error)]/5",
   info: "border-blue-500 bg-blue-500/5",
-  success: "border-[var(--color-success)] bg-[var(--color-success)]/5",
-  warning: "border-[var(--color-warning)] bg-[var(--color-warning)]/5",
+  success: "border-[var(--success)] bg-[var(--success)]/5",
+  warning: "border-[var(--warning)] bg-[var(--warning)]/5",
 }
 
 const iconColors = {
-  alert: "text-[var(--color-error)]",
+  alert: "text-[var(--error)]",
   info: "text-blue-500",
-  success: "text-[var(--color-success)]",
-  warning: "text-[var(--color-warning)]",
+  success: "text-[var(--success)]",
+  warning: "text-[var(--warning)]",
 }
 
 export default function NotificationsPage() {
@@ -124,70 +124,70 @@ export default function NotificationsPage() {
       <div className="space-y-6 p-6">
         {/* Stats */}
         <div className="grid gap-6 md:grid-cols-4">
-          <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
+          <Card className="border-[var(--border)] bg-[var(--surface)]">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-[var(--color-muted)]">Total</p>
-                  <p className="mt-2 text-3xl font-bold text-[var(--color-foreground)]">{notifications.length}</p>
+                  <p className="text-sm font-medium text-[var(--muted)]">Total</p>
+                  <p className="mt-2 text-3xl font-bold text-[var(--foreground)]">{notifications.length}</p>
                 </div>
-                <Bell className="h-8 w-8 text-[var(--color-muted)]" />
+                <Bell className="h-8 w-8 text-[var(--muted)]" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
+          <Card className="border-[var(--border)] bg-[var(--surface)]">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-[var(--color-muted)]">Unread</p>
-                  <p className="mt-2 text-3xl font-bold text-[var(--color-primary)]">{unreadCount}</p>
+                  <p className="text-sm font-medium text-[var(--muted)]">Unread</p>
+                  <p className="mt-2 text-3xl font-bold text-[var(--primary)]">{unreadCount}</p>
                 </div>
-                <Clock className="h-8 w-8 text-[var(--color-primary)]" />
+                <Clock className="h-8 w-8 text-[var(--primary)]" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
+          <Card className="border-[var(--border)] bg-[var(--surface)]">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-[var(--color-muted)]">Alerts</p>
-                  <p className="mt-2 text-3xl font-bold text-[var(--color-error)]">
+                  <p className="text-sm font-medium text-[var(--muted)]">Alerts</p>
+                  <p className="mt-2 text-3xl font-bold text-[var(--error)]">
                     {notifications.filter((n) => n.type === "alert" || n.type === "warning").length}
                   </p>
                 </div>
-                <AlertTriangle className="h-8 w-8 text-[var(--color-error)]" />
+                <AlertTriangle className="h-8 w-8 text-[var(--error)]" />
               </div>
             </CardContent>
           </Card>
 
-          <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
+          <Card className="border-[var(--border)] bg-[var(--surface)]">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-[var(--color-muted)]">Success</p>
-                  <p className="mt-2 text-3xl font-bold text-[var(--color-success)]">
+                  <p className="text-sm font-medium text-[var(--muted)]">Success</p>
+                  <p className="mt-2 text-3xl font-bold text-[var(--success)]">
                     {notifications.filter((n) => n.type === "success").length}
                   </p>
                 </div>
-                <CheckCircle className="h-8 w-8 text-[var(--color-success)]" />
+                <CheckCircle className="h-8 w-8 text-[var(--success)]" />
               </div>
             </CardContent>
           </Card>
         </div>
 
         {/* Notifications List */}
-        <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
-          <div className="border-b border-[var(--color-border)] p-6">
+        <Card className="border-[var(--border)] bg-[var(--surface)]">
+          <div className="border-b border-[var(--border)] p-6">
             <div className="flex items-center justify-between">
               <Tabs value={filter} onValueChange={(v) => setFilter(v as "all" | "unread")}>
-                <TabsList className="bg-[var(--color-background)]">
+                <TabsList className="bg-[var(--background)]">
                   <TabsTrigger value="all">All Notifications</TabsTrigger>
                   <TabsTrigger value="unread">
                     Unread
                     {unreadCount > 0 && (
-                      <Badge className="ml-2 bg-[var(--color-primary)] text-white" variant="secondary">
+                      <Badge className="ml-2 bg-[var(--primary)] text-white" variant="secondary">
                         {unreadCount}
                       </Badge>
                     )}
@@ -196,7 +196,7 @@ export default function NotificationsPage() {
               </Tabs>
 
               {unreadCount > 0 && (
-                <Button variant="outline" size="sm" onClick={markAllAsRead} className="bg-transparent">
+                <Button variant="outline" size="sm" onClick={markAllAsRead} className="bg-[var(--buttoncolor1)] text-white">
                   Mark all as read
                 </Button>
               )}
@@ -206,19 +206,19 @@ export default function NotificationsPage() {
           <CardContent className="p-0">
             {filteredNotifications.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
-                <Bell className="mb-4 h-12 w-12 text-[var(--color-muted)]" />
-                <p className="text-[var(--color-muted)]">No notifications to display</p>
+                <Bell className="mb-4 h-12 w-12 text-[var(--muted)]" />
+                <p className="text-[var(--muted)]">No notifications to display</p>
               </div>
             ) : (
-              <div className="divide-y divide-[var(--color-border)]">
+              <div className="divide-y divide-[var(--border)]">
                 {filteredNotifications.map((notification) => {
                   const Icon = notificationIcons[notification.type]
                   return (
                     <div
                       key={notification.id}
                       className={cn(
-                        "flex items-start gap-4 p-6 transition-colors hover:bg-[var(--color-background)]",
-                        !notification.read && "bg-[var(--color-background)]",
+                        "flex items-start gap-4 p-6 transition-colors hover:bg-[var(--background)]",
+                        !notification.read && "bg-[var(--background)]",
                       )}
                     >
                       <div
@@ -234,11 +234,11 @@ export default function NotificationsPage() {
                         <div className="flex items-start justify-between gap-4">
                           <div className="flex-1">
                             <div className="flex items-center gap-2">
-                              <p className="font-semibold text-[var(--color-foreground)]">{notification.title}</p>
-                              {!notification.read && <div className="h-2 w-2 rounded-full bg-[var(--color-primary)]" />}
+                              <p className="font-semibold text-[var(--foreground)]">{notification.title}</p>
+                              {!notification.read && <div className="h-2 w-2 rounded-full bg-[var(--primary)]" />}
                             </div>
-                            <p className="mt-1 text-sm text-[var(--color-muted)]">{notification.message}</p>
-                            <p className="mt-2 text-xs text-[var(--color-muted)]">{notification.time}</p>
+                            <p className="mt-1 text-sm text-[var(--muted)]">{notification.message}</p>
+                            <p className="mt-2 text-xs text-[var(--muted)]">{notification.time}</p>
                           </div>
 
                           <div className="flex gap-2">
@@ -247,7 +247,7 @@ export default function NotificationsPage() {
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => markAsRead(notification.id)}
-                                className="h-8 text-xs"
+                                className="h-8 text-xs bg-[var(--buttoncolor1)] text-white"
                               >
                                 Mark as read
                               </Button>
@@ -256,7 +256,7 @@ export default function NotificationsPage() {
                               variant="ghost"
                               size="icon"
                               onClick={() => deleteNotification(notification.id)}
-                              className="h-8 w-8 text-[var(--color-error)] hover:text-[var(--color-error)]"
+                              className="h-8 w-8 text-[var(--error)] hover:text-[var(--error)]"
                             >
                               <XCircle className="h-4 w-4" />
                             </Button>

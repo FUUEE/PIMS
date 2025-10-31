@@ -70,7 +70,7 @@ export function Sidebar() {
                 className={cn(
                   "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
                   isActive
-                    ? "bg-[var(--color-primary)] text-white"
+                    ? "bg-[var(--primary)] text-white"
                     : "text-[var(--color-muted)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-foreground)]",
                 )}
               >
@@ -86,7 +86,7 @@ export function Sidebar() {
           <div className="mb-3 rounded-lg bg-[var(--color-background)] p-3">
             <p className="text-sm font-medium text-[var(--color-foreground)]">{user?.name}</p>
             <p className="text-xs text-[var(--color-muted)]">{user?.email}</p>
-            <p className="mt-1 inline-block rounded bg-[var(--color-primary)] px-2 py-0.5 text-xs font-medium text-white">
+            <p className="mt-1 inline-block rounded bg-[var(--color-primary)] px-2 py-0.5 text-xs font-medium text-black">
               {user?.role.toUpperCase()}
             </p>
           </div>

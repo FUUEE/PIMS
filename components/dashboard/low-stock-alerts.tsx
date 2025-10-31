@@ -16,30 +16,30 @@ const mockLowStockItems: LowStockItem[] = [
 
 export function LowStockAlerts() {
   return (
-    <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
+    <Card className="border-[var(--border)] bg-[var(--surface)]">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-[var(--color-foreground)]">
-          <AlertTriangle className="h-5 w-5 text-[var(--color-warning)]" />
+        <CardTitle className="flex items-center gap-2 text-[var(--foreground)]">
+          <AlertTriangle className="h-5 w-5 text-[var(--warning)]" />
           Low Stock Alerts
         </CardTitle>
       </CardHeader>
       <CardContent>
         {mockLowStockItems.length === 0 ? (
-          <p className="text-sm text-[var(--color-muted)]">No low stock items</p>
+          <p className="text-sm text-[var(--muted)]">No low stock items</p>
         ) : (
           <div className="space-y-3">
             {mockLowStockItems.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between rounded-lg border border-[var(--color-warning)]/20 bg-[var(--color-warning)]/5 p-3"
+                className="flex items-center justify-between rounded-lg border border-[var(--warning)]/20 bg-[var(--warning)]/5 p-3"
               >
                 <div>
-                  <p className="text-sm font-medium text-[var(--color-foreground)]">{item.name}</p>
-                  <p className="text-xs text-[var(--color-muted)]">
+                  <p className="text-sm font-medium text-[var(--foreground)]">{item.name}</p>
+                  <p className="text-xs text-[var(--muted)]">
                     {item.stock} units left (threshold: {item.threshold})
                   </p>
                 </div>
-                <Badge variant="outline" className="border-[var(--color-warning)] text-[var(--color-warning)]">
+                <Badge variant="outline" className="border-[var(--warning)] text-[var(--warning)]">
                   Low Stock
                 </Badge>
               </div>

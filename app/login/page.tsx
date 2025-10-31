@@ -38,30 +38,30 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[var(--color-background)] via-[var(--color-surface)] to-[var(--color-background)] p-4">
-      <Card className="w-full max-w-md border-[var(--color-border)] bg-[var(--color-surface)]">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[var(--background)] via-[var(--surface)] to-[var(--background)] p-4">
+      <Card className="w-full max-w-md border-[var(--border)] bg-[var(--surface)]">
         <CardHeader className="space-y-4 text-center">
-          <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-light)] p-2">
+          <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-[var(--primary)] to-[var(--primary-light)] p-2">
             <Image src="/logo.png" alt="Pandayan Logo" width={80} height={80} className="rounded-full" />
           </div>
           <div>
-            <CardTitle className="text-3xl font-bold text-[var(--color-foreground)]">
-              Pandayan <span className="text-[var(--color-secondary)]">IMS</span>
+            <CardTitle className="text-3xl font-bold text-[var(--foreground)]">
+              Pandayan <span className="text-[var(--secondary)]">IMS</span>
             </CardTitle>
-            <CardDescription className="text-[var(--color-muted)]">Inventory Management System</CardDescription>
+            <CardDescription className="text-[var(--muted)]">Inventory Management System</CardDescription>
           </div>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <Alert variant="destructive" className="border-[var(--color-error)] bg-[var(--color-error)]/10">
+              <Alert variant="destructive" className="border-[var(--error)] bg-[var(--error)]/10">
                 <AlertCircle className="h-4 w-4" />
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-[var(--color-foreground)]">
+              <Label htmlFor="email" className="text-[var(--foreground)]">
                 Email
               </Label>
               <Input
@@ -71,12 +71,12 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-[var(--color-background)] text-[var(--color-foreground)]"
+                className="bg-[var(--fieldcolor)] text-[var(--foreground)]"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-[var(--color-foreground)]">
+              <Label htmlFor="password" className="text-[var(--foreground)]">
                 Password
               </Label>
               <Input
@@ -86,25 +86,25 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="bg-[var(--color-background)] text-[var(--color-foreground)]"
+                className="bg-[var(--fieldcolor)] text-[var(--foreground)]"
               />
             </div>
 
             <Button
               type="submit"
-              className="w-full bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
+              className="w-full bg-[var(--buttoncolor2)] text-white hover:bg-[var(--primary-hover)]"
               disabled={isLoading}
             >
               {isLoading ? "Signing in..." : "Sign In"}
             </Button>
           </form>
 
-          <div className="mt-6 space-y-2 rounded-lg bg-[var(--color-background)] p-4 text-xs text-[var(--color-muted)]">
-            <p className="font-semibold text-[var(--color-foreground)]">Demo Accounts:</p>
+          {/* <div className="mt-6 space-y-2 rounded-lg bg-[var(--background)] p-4 text-xs text-[var(--muted)]">
+            <p className="font-semibold text-[var(--foreground)]">Demo Accounts:</p>
             <p>Admin: admin@pandayan.com / admin123</p>
             <p>Staff: staff@pandayan.com / staff123</p>
             <p>Cashier: cashier@pandayan.com / cashier123</p>
-          </div>
+          </div> */}
         </CardContent>
       </Card>
     </div>

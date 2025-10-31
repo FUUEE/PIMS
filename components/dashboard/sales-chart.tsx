@@ -15,25 +15,42 @@ const mockSalesData = [
 
 export function SalesChart() {
   return (
-    <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
+    <Card className="border-[var(--border)] bg-[var(--surface)]">
       <CardHeader>
-        <CardTitle className="text-[var(--color-foreground)]">Weekly Sales</CardTitle>
+        <CardTitle className="text-[var(--foreground)]">Weekly Sales</CardTitle>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={mockSalesData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
-            <XAxis dataKey="day" stroke="var(--color-muted)" />
-            <YAxis stroke="var(--color-muted)" />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+            <XAxis dataKey="day" stroke="var(--barborderforeground)" />
+            <YAxis stroke="var(--barborderforeground)" />
             <Tooltip
               contentStyle={{
-                backgroundColor: "var(--color-surface)",
-                border: "1px solid var(--color-border)",
+                backgroundColor: "lightblue",
+                border: "1px solid #80caff",
                 borderRadius: "8px",
+                 color: "var(--hoveredtext)"
               }}
-              formatter={(value: number) => `₱${value.toLocaleString()}`}
+              formatter={(value: number) => [
+                <span style={{ color: "var(--hoveredtext)", fontWeight: 600 }}>
+                  ₱{value.toLocaleString()}
+                </span>,
+              ]}
             />
-            <Bar dataKey="sales" fill="var(--color-primary)" radius={[8, 8, 0, 0]} />
+
+
+            {/* ✅ Active (hovered) bar turns light green */}
+            <Bar
+              dataKey="sales"
+              fill="black"
+              radius={[8, 8, 0, 0]}
+              activeBar={{
+                fill: "var(--barforeground)", // solid light green on hover
+                stroke: "var(--barborderforeground)", // optional darker border for definition
+                strokeWidth: 2,
+              }}
+            />
           </BarChart>
         </ResponsiveContainer>
       </CardContent>

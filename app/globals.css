@@ -5,14 +5,22 @@
 
 /* Light mode variables */
 :root {
-  --background: #ffffff;
+  --background: #fcf3d085;
   --foreground: #232323;
   --primary: #8b0000; /* Pandayan Dark Red */
   --primary-hover: #a00000;
   --secondary: #ffd700; /* Gold */
   --accent: #d4af37;   /* Darker Gold */
-  --border: #e5e7eb;
+  --border: #000000;
   --radius: 0.625rem;
+  --hoveredtext: #ffffff;
+  --barforeground: #000000;
+  --barborderforeground: #c4a425;
+  --navselected: #3b0e00;
+  --dropdowncolor: #ffe347;
+  --fieldcolor: #ffffffad;
+  --buttoncolor1: #1a8100;
+  --buttoncolor2: #90191c;
 }
 
 /* Dark mode variables */
@@ -49,4 +57,32 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #cbd5e1; /* Muted gray */
+}
+
+/* Animation */
+@keyframes dropdown-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(-4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes dropdown-out {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.95) translateY(-4px);
+  }
+}
+.animate-dropdown-in {
+  animation: dropdown-in 0.15s ease-out forwards;
+}
+.animate-dropdown-out {
+  animation: dropdown-out 0.12s ease-in forwards;
 }

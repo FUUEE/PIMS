@@ -55,8 +55,8 @@ export default function InventoryPage() {
       <div className="space-y-6 p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-semibold text-[var(--color-foreground)]">All Items</h2>
-            <p className="text-sm text-[var(--color-muted)]">View and manage your inventory</p>
+            <h2 className="text-xl font-semibold text-[var(--foreground)]">All Items</h2>
+            <p className="text-sm text-[var(--muted)]">View and manage your inventory</p>
           </div>
           <AddItemDialog onAdd={handleAdd} suppliers={suppliers} />
         </div>
