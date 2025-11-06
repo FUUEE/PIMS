@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if invoice %}Edit{% else %}New{% endif %} Invoice - School Inventory Management System{% endblock %}
+{% block page_title %}{% if invoice %}Edit Invoice{% else %}New Invoice{% endif %}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">Invoice Details</div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="sale" class="form-label">Sale</label>
+                        <select class="form-control" id="sale" name="sale">
+                            <option value="">Select Sale (Optional)</option>
+                            {% for sale in sales %}
+                            <option value="{{ sale.id }}" {% if invoice.sale.id == sale.id %}selected{% endif %}>{{ sale.sale_number }} - ${{ sale.total_amount|floatformat:2 }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="subtotal" class="form-label">Subtotal *</label>
+                                <input type="number" class="form-control" id="subtotal" name="subtotal" step="0.01" value="{{ invoice.subtotal|default:0 }}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="tax_amount" class="form-label">Tax Amount</label>
+                                <input type="number" class="form-control" id="tax_amount" name="tax_amount" step="0.01" value="{{ invoice.tax_amount|default:0 }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="discount_amount" class="form-label">Discount Amount</label>
+                                <input type="number" class="form-control" id="discount_amount" name="discount_amount" step="0.01" value="{{ invoice.discount_amount|default:0 }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="form-control" id="status" name="status">
+                                    <option value="draft" {% if invoice.status == 'draft' %}selected{% endif %}>Draft</option>
+                                    <option value="issued" {% if invoice.status == 'issued' %}selected{% endif %}>Issued</option>
+                                    <option value="paid" {% if invoice.status == 'paid' %}selected{% endif %}>Paid</option>
+                                    <option value="cancelled" {% if invoice.status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Notes</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3">{{ invoice.notes|default:'' }}</textarea>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save Invoice</button>
+                        <a href="{% url 'invoice_list' %}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

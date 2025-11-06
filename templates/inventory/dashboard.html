@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - School Inventory Management System{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="summary-card">
+            <h5>Total Items</h5>
+            <div class="value">{{ total_items }}</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="summary-card">
+            <h5>Low Stock Items</h5>
+            <div class="value" style="color: #FFD700;">{{ low_stock_items }}</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="summary-card">
+            <h5>Total Sales</h5>
+            <div class="value">${{ total_sales|floatformat:2 }}</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="summary-card">
+            <h5>Suppliers</h5>
+            <div class="value">{{ supplier_count }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Sales Trend (Last 7 Days)</div>
+            <div class="card-body">
+                <canvas id="salesChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Inventory Summary</div>
+            <div class="card-body">
+                <p><strong>Total Inventory Value:</strong> ${{ total_inventory_value|floatformat:2 }}</p>
+                <p><strong>Total Purchases:</strong> ${{ total_purchases|floatformat:2 }}</p>
+                <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i> {{ low_stock_items }} items are running low on stock!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Recent Sales</div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Sale #</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for sale in recent_sales %}
+                        <tr>
+                            <td><a href="{% url 'sale_detail' sale.pk %}">{{ sale.sale_number }}</a></td>
+                            <td>{{ sale.sale_date|date:"M d, Y H:i" }}</td>
+                            <td>${{ sale.total_amount|floatformat:2 }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center">No sales yet</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Recent Purchases</div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Purchase #</th>
+                            <th>Supplier</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for purchase in recent_purchases %}
+                        <tr>
+                            <td><a href="{% url 'purchase_detail' purchase.pk %}">{{ purchase.purchase_number }}</a></td>
+                            <td>{{ purchase.supplier.name }}</td>
+                            <td>${{ purchase.total_amount|floatformat:2 }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center">No purchases yet</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const salesData = {{ sales_trend|safe }};
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: salesData.map(d => d.date),
+            datasets: [{
+                label: 'Sales Amount ($)',
+                data: salesData.map(d => d.amount),
+                borderColor: '#800000',
+                backgroundColor: 'rgba(128, 0, 0, 0.1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#FFD700',
+                pointBorderColor: '#800000',
+                pointRadius: 5,
+                pointHoverRadius: 7,
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: '#333',
+                        font: { size: 12 }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return '$' + value.toFixed(2);
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

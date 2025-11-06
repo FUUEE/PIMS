@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Inventory - School Inventory Management System{% endblock %}
+{% block page_title %}Inventory Management{% endblock %}
+
+{% block content %}
+<div class="row mb-3">
+    <div class="col-md-12">
+        <a href="{% url 'item_create' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Add New Item</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">Search & Filter</div>
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-6">
+                <input type="text" name="search" class="form-control" placeholder="Search by name, SKU, or description" value="{{ search_query }}">
+            </div>
+            <div class="col-md-4">
+                <select name="category" class="form-control">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}" {% if category.id|stringformat:"s" == category_filter %}selected{% endif %}>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card mt-3">
+    <div class="card-header">Items List</div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>SKU</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total Value</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td><strong>{{ item.name }}</strong></td>
+                    <td>{{ item.sku }}</td>
+                    <td>{{ item.category.name|default:"N/A" }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.unit_price|floatformat:2 }}</td>
+                    <td>${{ item.total_value|floatformat:2 }}</td>
+                    <td>
+                        {% if item.is_low_stock %}
+                        <span class="badge badge-warning"><i class="fas fa-exclamation"></i> Low Stock</span>
+                        {% else %}
+                        <span class="badge bg-success">In Stock</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'item_detail' item.pk %}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                        <a href="{% url 'item_update' item.pk %}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                        <a href="{% url 'item_delete' item.pk %}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">No items found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

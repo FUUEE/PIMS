@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ supplier.name }} - School Inventory Management System{% endblock %}
+{% block page_title %}Supplier Details{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">{{ supplier.name }}</div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <p><strong>Contact Person:</strong> {{ supplier.contact_person|default:"N/A" }}</p>
+                        <p><strong>Email:</strong> {{ supplier.email|default:"N/A" }}</p>
+                        <p><strong>Phone:</strong> {{ supplier.phone|default:"N/A" }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Address:</strong> {{ supplier.address|default:"N/A" }}</p>
+                        <p><strong>City:</strong> {{ supplier.city|default:"N/A" }}</p>
+                        <p><strong>Country:</strong> {{ supplier.country|default:"N/A" }}</p>
+                    </div>
+                </div>
+                <p><strong>Payment Terms:</strong> {{ supplier.payment_terms|default:"N/A" }}</p>
+
+                <h5 class="mt-4">Purchase History</h5>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Purchase #</th>
+                            <th>Date</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for purchase in purchases %}
+                        <tr>
+                            <td><a href="{% url 'purchase_detail' purchase.pk %}">{{ purchase.purchase_number }}</a></td>
+                            <td>{{ purchase.purchase_date|date:"M d, Y" }}</td>
+                            <td>{{ purchase.purchaseitem_set.count }}</td>
+                            <td>${{ purchase.total_amount|floatformat:2 }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">No purchases from this supplier</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="mt-3">
+                    <a href="{% url 'supplier_update' supplier.pk %}" class="btn btn-warning"><i class="fas fa-edit"></i> Edit</a>
+                    <a href="{% url 'supplier_delete' supplier.pk %}" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
+                    <a href="{% url 'supplier_list' %}" class="btn btn-secondary">Back to Suppliers</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice {{ invoice.invoice_number }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        .invoice-container {
+            background-color: white;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #800000;
+            padding-bottom: 20px;
+        }
+        .company-info h1 {
+            color: #800000;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .invoice-title {
+            text-align: right;
+        }
+        .invoice-title h2 {
+            color: #800000;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .invoice-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .detail-section h3 {
+            color: #800000;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .detail-section p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        table thead {
+            background-color: #800000;
+            color: white;
+        }
+        table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        table tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+        .totals {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 40px;
+        }
+        .totals-table {
+            width: 300px;
+        }
+        .totals-table table {
+            margin: 0;
+        }
+        .totals-table tr.total-row {
+            background-color: #800000;
+            color: white;
+            font-weight: bold;
+        }
+        .totals-table tr.total-row td {
+            border: none;
+            padding: 15px 12px;
+            font-size: 16px;
+        }
+        .notes {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid #FFD700;
+            margin-bottom: 30px;
+        }
+        .notes h3 {
+            color: #800000;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .footer {
+            text-align: center;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            .invoice-container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="invoice-header">
+            <div class="company-info">
+                <h1>School Inventory System</h1>
+                <p>School Supplies Management</p>
+            </div>
+            <div class="invoice-title">
+                <h2>INVOICE</h2>
+                <p><strong>{{ invoice.invoice_number }}</strong></p>
+            </div>
+        </div>
+
+        <div class="invoice-details">
+            <div class="detail-section">
+                <h3>Invoice Details</h3>
+                <p><strong>Invoice Date:</strong> {{ invoice.invoice_date|date:"M d, Y" }}</p>
+                <p><strong>Due Date:</strong> {{ invoice.due_date|date:"M d, Y"|default:"Upon Receipt" }}</p>
+                <p><strong>Status:</strong> {{ invoice.get_status_display }}</p>
+            </div>
+            <div class="detail-section">
+                <h3>Created By</h3>
+                <p>{{ invoice.created_by.get_full_name|default:invoice.created_by.username }}</p>
+            </div>
+        </div>
+
+        {% if invoice.sale %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in invoice.sale.saleitem_set.all %}
+                <tr>
+                    <td>{{ item.item.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.unit_price|floatformat:2 }}</td>
+                    <td>${{ item.subtotal|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        <div class="totals">
+            <div class="totals-table">
+                <table>
+                    <tr>
+                        <td>Subtotal:</td>
+                        <td>${{ invoice.subtotal|floatformat:2 }}</td>
+                    </tr>
+                    <tr>
+                        <td>Tax:</td>
+                        <td>${{ invoice.tax_amount|floatformat:2 }}</td>
+                    </tr>
+                    <tr>
+                        <td>Discount:</td>
+                        <td>-${{ invoice.discount_amount|floatformat:2 }}</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>TOTAL:</td>
+                        <td>${{ invoice.total_amount|floatformat:2 }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        {% if invoice.notes %}
+        <div class="notes">
+            <h3>Notes</h3>
+            <p>{{ invoice.notes }}</p>
+        </div>
+        {% endif %}
+
+        <div class="footer">
+            <p>Thank you for your business!</p>
+            <p>This is a computer-generated invoice. No signature is required.</p>
+        </div>
+    </div>
+
+    <script>
+        window.print();
+    </script>
+</body>
+</html>

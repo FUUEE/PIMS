@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - School Inventory Management System{% endblock %}
+{% block page_title %}Welcome to School Inventory Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Welcome to the School Inventory Management System</h5>
+                <p class="card-text">This system helps you manage school supplies inventory, sales, purchases, and invoicing efficiently.</p>
+                <p class="card-text">Use the sidebar menu to navigate through different modules:</p>
+                <ul>
+                    <li><strong>Dashboard:</strong> View summary statistics and sales trends</li>
+                    <li><strong>Inventory:</strong> Manage school supply items and stock levels</li>
+                    <li><strong>POS:</strong> Process sales transactions quickly</li>
+                    <li><strong>Sales:</strong> View and manage sales records</li>
+                    <li><strong>Purchases:</strong> Manage supplier purchases</li>
+                    <li><strong>Suppliers:</strong> Manage supplier information</li>
+                    <li><strong>Invoices:</strong> Generate and manage invoices</li>
+                </ul>
+                <a href="{% url 'dashboard' %}" class="btn btn-primary">Go to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

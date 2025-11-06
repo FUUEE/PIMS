@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Invoice {{ invoice.invoice_number }} - School Inventory Management System{% endblock %}
+{% block page_title %}Invoice Details{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">Invoice {{ invoice.invoice_number }}</div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <p><strong>Invoice Number:</strong> {{ invoice.invoice_number }}</p>
+                        <p><strong>Invoice Date:</strong> {{ invoice.invoice_date|date:"M d, Y H:i" }}</p>
+                        <p><strong>Due Date:</strong> {{ invoice.due_date|date:"M d, Y"|default:"N/A" }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Status:</strong> 
+                            {% if invoice.status == 'draft' %}
+                            <span class="badge bg-secondary">Draft</span>
+                            {% elif invoice.status == 'issued' %}
+                            <span class="badge bg-info">Issued</span>
+                            {% elif invoice.status == 'paid' %}
+                            <span class="badge bg-success">Paid</span>
+                            {% else %}
+                            <span class="badge bg-danger">Cancelled</span>
+                            {% endif %}
+                        </p>
+                        <p><strong>Created By:</strong> {{ invoice.created_by.get_full_name|default:invoice.created_by.username }}</p>
+                    </div>
+                </div>
+
+                {% if invoice.sale %}
+                <h5>Sale Information</h5>
+                <p><strong>Sale Number:</strong> <a href="{% url 'sale_detail' invoice.sale.pk %}">{{ invoice.sale.sale_number }}</a></p>
+                {% endif %}
+
+                <h5 class="mt-4">Invoice Summary</h5>
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <table class="table table-sm">
+                            <tr>
+                                <td><strong>Subtotal:</strong></td>
+                                <td>${{ invoice.subtotal|floatformat:2 }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tax:</strong></td>
+                                <td>${{ invoice.tax_amount|floatformat:2 }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Discount:</strong></td>
+                                <td>-${{ invoice.discount_amount|floatformat:2 }}</td>
+                            </tr>
+                            <tr class="table-active">
+                                <td><strong>Total:</strong></td>
+                                <td><strong>${{ invoice.total_amount|floatformat:2 }}</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                {% if invoice.notes %}
+                <div class="mt-3">
+                    <p><strong>Notes:</strong> {{ invoice.notes }}</p>
+                </div>
+                {% endif %}
+
+                <div class="mt-3">
+                    <a href="{% url 'invoice_print' invoice.pk %}" class="btn btn-primary"><i class="fas fa-print"></i> Print</a>
+                    <a href="{% url 'invoice_update' invoice.pk %}" class="btn btn-warning"><i class="fas fa-edit"></i> Edit</a>
+                    <a href="{% url 'invoice_list' %}" class="btn btn-secondary">Back to Invoices</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

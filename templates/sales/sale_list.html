@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Sales - School Inventory Management System{% endblock %}
+{% block page_title %}Sales Management{% endblock %}
+
+{% block content %}
+<div class="row mb-3">
+    <div class="col-md-12">
+        <a href="{% url 'pos_system' %}" class="btn btn-primary"><i class="fas fa-plus"></i> New Sale</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">Sales List</div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Sale #</th>
+                    <th>Cashier</th>
+                    <th>Date</th>
+                    <th>Items</th>
+                    <th>Subtotal</th>
+                    <th>Tax</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sale in sales %}
+                <tr>
+                    <td><strong>{{ sale.sale_number }}</strong></td>
+                    <td>{{ sale.cashier.username }}</td>
+                    <td>{{ sale.sale_date|date:"M d, Y H:i" }}</td>
+                    <td>{{ sale.saleitem_set.count }}</td>
+                    <td>${{ sale.total_amount|add:sale.tax_amount|add:sale.discount_amount|floatformat:2 }}</td>
+                    <td>${{ sale.tax_amount|floatformat:2 }}</td>
+                    <td>${{ sale.total_amount|floatformat:2 }}</td>
+                    <td>
+                        <a href="{% url 'sale_detail' sale.pk %}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">No sales found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
